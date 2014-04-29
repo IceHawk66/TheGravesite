@@ -7,7 +7,7 @@ public class main {
 
 	public static void main(String[] args) throws RemoteException, NotBoundException {
 		Registry registry = LocateRegistry.getRegistry();
-		InterfaceRawData rawdata = (InterfaceRawData) registry.lookup("RawData");
+		InterfaceRawData rawdata = (InterfaceRawData) registry.lookup("InterfaceRawData");
 		
 		//Adder adder = (Adder) registry.lookup("Adder");
 		String[][] spielerdaten;
@@ -18,8 +18,9 @@ public class main {
 		
 		for(int i = 0; i < map.length; i++){
 			for(int j = 0; j < map[0].length; j++){
-				System.out.println(map[i][j]);
+				System.out.print(map[i][j]);
 			}
+			System.out.println();
 		}
 	}
 }
