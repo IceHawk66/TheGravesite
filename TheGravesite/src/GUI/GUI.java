@@ -3,7 +3,13 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.imageio.*;
 import javax.swing.*;
 
 public class GUI extends JFrame{
@@ -16,16 +22,47 @@ public class GUI extends JFrame{
 		super("The Gravesite");
 		super.setSize(breite, hoehe);
 		
+		// Hintergrundbild
+		/*File bgimage = new File("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png");
+		BufferedImage bufimg = null;
+		
+		try{
+			bufimg = ImageIO.read(bgimage);
+			
+		} catch(IOException e){
+			System.err.println("Image not found!");
+		}
+		System.out.println(this.getClass());
+		JPanel imagepanel = new JPanel();
+		imagepanel.add(new JLabel(new ImageIcon(bufimg)));
+		this.add(imagepanel, BorderLayout.CENTER);*/
+		/*BufferedImage myPicture;
+		try {
+			myPicture = ImageIO.read(new File("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png"));
+			JPanel imagepanel = new JPanel();
+			imagepanel.add(new JLabel(new ImageIcon(myPicture)));
+			this.add(imagepanel, BorderLayout.CENTER);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+
+		ImageIcon image = new ImageIcon("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png");
+		JLabel label = new JLabel();
+		JPanel panel = new JPanel();
+		label.setIcon(image);
+		panel.add(label);
+		this.add(panel, BorderLayout.CENTER);
+		validate();
+		
 		// Panels
 		JPanel buttons = new JPanel();
-		Dimension groessebuttons = new Dimension(breite / 2, hoehe / 2);
-		buttons.setPreferredSize(groessebuttons);
-		buttons.setMaximumSize(new Dimension(100, 100));
-		buttons.setMinimumSize(new Dimension(1,1));
+		//JPanel leeresPanel = new JPanel();
 		
 		// Layouts
 		this.setLayout(new BorderLayout());
 		buttons.setLayout(new GridLayout(4,1));
+		//leeresPanel.setSize(300, hoehe);
 		
 		// Buttons
 		JButton starten = new JButton("Start");
@@ -39,10 +76,11 @@ public class GUI extends JFrame{
 		buttons.add(optionen);
 		buttons.add(beenden);
 		
-		this.add(buttons, BorderLayout.CENTER);
+		this.add(buttons, BorderLayout.SOUTH);
+		//this.add(leeresPanel, BorderLayout.WEST);
 		
-		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		super.setVisible(true);
 	}
 }
