@@ -3,6 +3,8 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +14,14 @@ import java.net.URL;
 import javax.imageio.*;
 import javax.swing.*;
 
-public class GUI extends JFrame{
+public class GUI extends JFrame implements ActionListener{
+	
+	private JButton starten;
+	private JButton laden;
+	private JButton optionen;
+	private JButton beenden;
+	
+	private String spielername;
 	
 	public GUI(){
 		super();
@@ -65,16 +74,19 @@ public class GUI extends JFrame{
 		//leeresPanel.setSize(300, hoehe);
 		
 		// Buttons
-		JButton starten = new JButton("Start");
-		JButton laden = new JButton("Laden");
-		JButton optionen = new JButton("Optionen");
-		JButton beenden = new JButton("Beenden");
+		starten = new JButton("Start");
+		laden = new JButton("Laden");
+		optionen = new JButton("Optionen");
+		beenden = new JButton("Beenden");
 		
 		// Buttons dem Panel hinzufügen
 		buttons.add(starten);
 		buttons.add(laden);
 		buttons.add(optionen);
 		buttons.add(beenden);
+		
+		// Listener hinzufügen
+		starten.addActionListener(this);
 		
 		this.add(buttons, BorderLayout.SOUTH);
 		//this.add(leeresPanel, BorderLayout.WEST);
@@ -83,4 +95,24 @@ public class GUI extends JFrame{
 		this.setResizable(false);
 		super.setVisible(true);
 	}
+
+	public void actionPerformed(ActionEvent e) {
+		String befehl = e.getActionCommand();
+		if (befehl.equals("Start")) {
+			// Spielername muss gespeichert werden und ein neuer Spieler erzeugt werden
+			// evtl. Abfrage, ob weiterspielen wenn Spielstand vorhanden
+			new NeuerSpieler(this);
+		}	
+		
+	}
+
+	public String getSpielername() {
+		return spielername;
+	}
+
+	public void setSpielername(String spielername) {
+		this.spielername = spielername;
+	}
+	
+	
 }
