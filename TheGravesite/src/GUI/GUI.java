@@ -32,19 +32,19 @@ public class GUI extends JFrame implements ActionListener{
 		super.setSize(breite, hoehe);
 		
 		// Hintergrundbild
-		/*File bgimage = new File("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png");
+		File bgimage = new File("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png");
 		BufferedImage bufimg = null;
 		
 		try{
 			bufimg = ImageIO.read(bgimage);
-			
 		} catch(IOException e){
 			System.err.println("Image not found!");
 		}
-		System.out.println(this.getClass());
 		JPanel imagepanel = new JPanel();
 		imagepanel.add(new JLabel(new ImageIcon(bufimg)));
-		this.add(imagepanel, BorderLayout.CENTER);*/
+		this.add(imagepanel, BorderLayout.CENTER);
+		
+		
 		/*BufferedImage myPicture;
 		try {
 			myPicture = ImageIO.read(new File("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png"));
@@ -55,14 +55,6 @@ public class GUI extends JFrame implements ActionListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-
-		ImageIcon image = new ImageIcon("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png");
-		JLabel label = new JLabel();
-		JPanel panel = new JPanel();
-		label.setIcon(image);
-		panel.add(label);
-		this.add(panel, BorderLayout.CENTER);
-		validate();
 		
 		// Panels
 		JPanel buttons = new JPanel();
@@ -101,18 +93,9 @@ public class GUI extends JFrame implements ActionListener{
 		if (befehl.equals("Start")) {
 			// Spielername muss gespeichert werden und ein neuer Spieler erzeugt werden
 			// evtl. Abfrage, ob weiterspielen wenn Spielstand vorhanden
-			new NeuerSpieler(this);
+			spielername = JOptionPane.showInputDialog(null,"Geben Sie Ihren Namen ein","Neuen Spieler erstellen",JOptionPane.PLAIN_MESSAGE);
 		}	
 		
 	}
-
-	public String getSpielername() {
-		return spielername;
-	}
-
-	public void setSpielername(String spielername) {
-		this.spielername = spielername;
-	}
-	
 	
 }

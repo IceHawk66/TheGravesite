@@ -19,7 +19,7 @@ public class main {
 			map = rawdata.getMap();
 			
 			GUI hauptfenster = new GUI(1280, 720);
-			
+		
 			// Testausgabe
 			/*for(int i = 0; i < map.length; i++){
 				for(int j = 0; j < map[0].length; j++){
