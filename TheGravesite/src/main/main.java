@@ -1,7 +1,9 @@
 package main;
 
 import java.rmi.*;
+
 import GUI.*;
+
 import java.rmi.registry.*;
 
 public class main {
@@ -12,7 +14,7 @@ public class main {
 			InterfaceRawData rawdata = (InterfaceRawData) registry.lookup("InterfaceRawData");
 			
 			String[][] spielerdaten;
-			String[][] map;
+			Boolean[][] map;
 			
 			// Arrays initialisieren mit Daten vom Server
 			spielerdaten = rawdata.getSpielerdaten();
@@ -27,6 +29,17 @@ public class main {
 				}
 				System.out.println();
 			}*/
+			
+			for (int i = 0; i < map.length; i++){
+	            for (int j = 0; j < map[i].length; j++){
+	                if (map[i][j] == false)
+	                    System.out.print("'");
+	                if (map[i][j] == true)
+	                    System.out.print("#");
+	                System.out.print(" ");
+	            }
+	            System.out.println("");
+	        }
 		} catch (ConnectException e){
 			System.err.println("Die Verbindung zum Server schlug fehl. Ist der Server gestartet?");
 		}

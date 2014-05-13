@@ -3,5 +3,5 @@ package main;
 public interface InterfaceRawData {
 
 	public String[][] getSpielerdaten();
-	public String[][] getMap();
+	public Boolean[][] getMap();
 }
