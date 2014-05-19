@@ -7,6 +7,8 @@ import GUI.*;
 import java.rmi.registry.*;
 
 public class main {
+	
+	private static int[][] map;
 
 	public static void main(String[] args) throws RemoteException, NotBoundException {
 		try{
@@ -14,13 +16,12 @@ public class main {
 			InterfaceRawData rawdata = (InterfaceRawData) registry.lookup("InterfaceRawData");
 			
 			String[][] spielerdaten;
-			int[][] map;
 			
 			// Arrays initialisieren mit Daten vom Server
 			spielerdaten = rawdata.getSpielerdaten();
 			map = rawdata.getMap();
 			
-			GUI hauptfenster = new GUI(1280, 720);
+			GUI hauptfenster = new GUI(1280, 720, map);
 		
 			// Testausgabe
 			/*for(int i = 0; i < map.length; i++){
@@ -52,4 +53,9 @@ public class main {
             System.out.println("");
         }
     }
+    
+    public static int[][] getMap(){
+    	return map;
+    }
+    
 }
