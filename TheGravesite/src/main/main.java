@@ -14,7 +14,7 @@ public class main {
 			InterfaceRawData rawdata = (InterfaceRawData) registry.lookup("InterfaceRawData");
 			
 			String[][] spielerdaten;
-			Boolean[][] map;
+			int[][] map;
 			
 			// Arrays initialisieren mit Daten vom Server
 			spielerdaten = rawdata.getSpielerdaten();
@@ -30,19 +30,26 @@ public class main {
 				System.out.println();
 			}*/
 			
-			for (int i = 0; i < map.length; i++){
-	            for (int j = 0; j < map[i].length; j++){
-	                if (map[i][j] == false)
-	                    System.out.print("'");
-	                if (map[i][j] == true)
-	                    System.out.print("#");
-	                System.out.print(" ");
-	            }
-	            System.out.println("");
-	        }
+			//darstellen(map);
+
 		} catch (ConnectException e){
 			System.err.println("Die Verbindung zum Server schlug fehl. Ist der Server gestartet?");
 		}
 		
 	}
+	
+    public static void darstellen(int[][] map) {
+        for (int i = 0; i < map.length; i++){
+            for (int j = 0; j < map[i].length; j++){
+                if (map[i][j] == 2)
+                    System.out.print("'");
+                if (map[i][j] == 1)
+                    System.out.print("#");
+                if (map[i][j] == 0)
+                    System.out.print(" ");
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+    }
 }

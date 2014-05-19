@@ -14,13 +14,8 @@ import java.net.URL;
 import javax.imageio.*;
 import javax.swing.*;
 
-public class GUI extends JFrame implements ActionListener{
-	
-	private JButton starten;
-	private JButton laden;
-	private JButton optionen;
-	private JButton beenden;
-	
+public class GUI extends JFrame{
+
 	private String spielername;
 	
 	public GUI(){
@@ -31,71 +26,69 @@ public class GUI extends JFrame implements ActionListener{
 		super("The Gravesite");
 		super.setSize(breite, hoehe);
 		
-		// Hintergrundbild
-		File bgimage = new File("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png");
-		BufferedImage bufimg = null;
+		System.out.println(System.getProperty("user.dir" + "bg.png"));
 		
-		try{
-			bufimg = ImageIO.read(bgimage);
-		} catch(IOException e){
-			System.err.println("Image not found!");
-		}
-		JPanel imagepanel = new JPanel();
-		imagepanel.add(new JLabel(new ImageIcon(bufimg)));
-		this.add(imagepanel, BorderLayout.CENTER);
-		
-		
-		/*BufferedImage myPicture;
+		BufferedImage hintergrund;
 		try {
-			myPicture = ImageIO.read(new File("/Users/mariusschulte/git/TheGravesite/TheGravesite/src/bg.png"));
-			JPanel imagepanel = new JPanel();
-			imagepanel.add(new JLabel(new ImageIcon(myPicture)));
-			this.add(imagepanel, BorderLayout.CENTER);
+			hintergrund = ImageIO.read(new File(System.getProperty("user.dir" + "/bg.jpg")));
+			JLabel picLabel = new JLabel(new ImageIcon(hintergrund));
+			this.add(picLabel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
-		// Panels
-		JPanel buttons = new JPanel();
-		//JPanel leeresPanel = new JPanel();
+		// Menue hinzufuegen
+		JMenuBar menuBar = new JMenuBar();
 		
-		// Layouts
-		this.setLayout(new BorderLayout());
-		buttons.setLayout(new GridLayout(4,1));
-		//leeresPanel.setSize(300, hoehe);
-		
-		// Buttons
-		starten = new JButton("Start");
-		laden = new JButton("Laden");
-		optionen = new JButton("Optionen");
-		beenden = new JButton("Beenden");
-		
-		// Buttons dem Panel hinzufügen
-		buttons.add(starten);
-		buttons.add(laden);
-		buttons.add(optionen);
-		buttons.add(beenden);
-		
-		// Listener hinzufügen
-		starten.addActionListener(this);
-		
-		this.add(buttons, BorderLayout.SOUTH);
-		//this.add(leeresPanel, BorderLayout.WEST);
-		
+		// Menues erstellen
+        JMenu fileMenu = new JMenu("Datei");
+        menuBar.add(fileMenu);
+        
+        // Dropdown Eintraege
+        JMenuItem neuesSpiel = new JMenuItem("Neues Spiel");
+        JMenuItem ladeSpiel = new JMenuItem("Spiel laden");
+        JMenuItem optionen = new JMenuItem("Optionen");
+        JMenuItem beendeSpiel = new JMenuItem("Beenden");
+        
+        // Eintraege dem Menue hinzufuegen
+        fileMenu.add(neuesSpiel);
+        fileMenu.add(ladeSpiel);
+        fileMenu.add(optionen);
+        fileMenu.add(beendeSpiel);
+        
+        // MenuBar setzen
+        this.setJMenuBar(menuBar);
+        
+        // ActionListener fuer das Menue
+        neuesSpiel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	spielername = JOptionPane.showInputDialog(null,"Geben Sie Ihren Namen ein","Neuen Spieler erstellen",JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+        
+        ladeSpiel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	// ladeSpiel Dialog aufrufen
+            }
+        });
+        
+        optionen.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	// Optionen Menue
+            }
+        });
+        
+        beendeSpiel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	System.exit(0);
+            }
+        });
+        
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		super.setVisible(true);
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		String befehl = e.getActionCommand();
-		if (befehl.equals("Start")) {
-			// Spielername muss gespeichert werden und ein neuer Spieler erzeugt werden
-			// evtl. Abfrage, ob weiterspielen wenn Spielstand vorhanden
-			spielername = JOptionPane.showInputDialog(null,"Geben Sie Ihren Namen ein","Neuen Spieler erstellen",JOptionPane.PLAIN_MESSAGE);
-		}	
-		
 	}
 	
 }
