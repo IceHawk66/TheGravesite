@@ -1,7 +1,9 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -27,7 +29,9 @@ public class GUI extends JFrame{
 	public GUI(int breite, int hoehe, int[][] map){
 		super("The Gravesite");
 		super.setSize(breite, hoehe);
-		map = this.map;
+		this.map = map;
+		
+
 		
 		// Bild im Hauptmenue
 		BufferedImage hintergrund = null;
@@ -106,39 +110,22 @@ public class GUI extends JFrame{
 		super.setVisible(true);
 	}
 	
-	// TODO Map abbilden
+	// Map abbilden
 	public void zeichneOberflaeche(){
-		/*ImageIcon raute = new ImageIcon(this.getClass().getResource("raute.png"));
 	    JPanel grid = new JPanel();
 	    grid.setLayout(new GridLayout(50, 50));
 	    for (int i = 0; i < map.length; i++) {
 	        for (int j = 0; j < map[0].length; j++) {
 	        	if (map[i][j] == 2)
-                    new JLabel(raute);
+                    grid.add(new JLabel("'"));
                 if (map[i][j] == 1)
-                    new JLabel(raute);
+                    grid.add(new JLabel("#"));
                 if (map[i][j] == 0)
-                    new JLabel(raute);
+                    grid.add(new JLabel(" "));
 	        }
 	    }
 	    this.add(grid);
 	    grid.setVisible(true);
-	    */
-		
-		JTextArea tamap = new JTextArea();
-		JPanel pmap = new JPanel();
-		pmap.add(tamap);
-		for (int i = 0; i < map.length; i++) {
-	        for (int j = 0; j < map[0].length; j++) {
-	        	if (map[i][j] == 2)
-                    tamap.append("'");
-                if (map[i][j] == 1)
-                	tamap.append("#");
-                if (map[i][j] == 0)
-                	tamap.append(" ");
-	        }
-	        tamap.append("\n");
-	    }
 	}
 	
 }
