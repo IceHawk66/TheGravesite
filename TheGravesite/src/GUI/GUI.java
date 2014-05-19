@@ -26,11 +26,11 @@ public class GUI extends JFrame{
 		super("The Gravesite");
 		super.setSize(breite, hoehe);
 		
-		System.out.println(System.getProperty("user.dir" + "bg.png"));
-		
-		BufferedImage hintergrund;
+		System.out.println(this.getClass().getResource("bg_2.png"));
+		// Bild im Hauptmenue
+		BufferedImage hintergrund = null;
 		try {
-			hintergrund = ImageIO.read(new File(System.getProperty("user.dir" + "/bg.jpg")));
+			hintergrund = ImageIO.read(this.getClass().getResource("bg_2.png"));
 			JLabel picLabel = new JLabel(new ImageIcon(hintergrund));
 			this.add(picLabel);
 		} catch (IOException e) {
@@ -49,13 +49,17 @@ public class GUI extends JFrame{
         JMenuItem neuesSpiel = new JMenuItem("Neues Spiel");
         JMenuItem ladeSpiel = new JMenuItem("Spiel laden");
         JMenuItem optionen = new JMenuItem("Optionen");
+        JMenuItem speichern = new JMenuItem("Speichern");
         JMenuItem beendeSpiel = new JMenuItem("Beenden");
         
         // Eintraege dem Menue hinzufuegen
         fileMenu.add(neuesSpiel);
         fileMenu.add(ladeSpiel);
         fileMenu.add(optionen);
+        fileMenu.add(speichern);
         fileMenu.add(beendeSpiel);
+        
+        speichern.setEnabled(false);
         
         // MenuBar setzen
         this.setJMenuBar(menuBar);
@@ -76,6 +80,12 @@ public class GUI extends JFrame{
         optionen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	// Optionen Menue
+            }
+        });
+        
+        speichern.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	// Spiel speichern
             }
         });
         
