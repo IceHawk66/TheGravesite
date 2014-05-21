@@ -14,16 +14,20 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RemoteException;
 
 import javax.imageio.*;
 import javax.swing.*;
 
+import main.ServerToClient;
+
 public class GUI extends JFrame implements ActionListener{
 	private JLabel picLabel;
-	public static String spielername;
+	private String spielername;
 	private String spielid;
 	private int[][] map;
 	private String[][] spielerdaten;
+	private ServerToClient stc;
 	
 	// Menuebar
 	JMenuBar menuBar;
@@ -37,11 +41,12 @@ public class GUI extends JFrame implements ActionListener{
 	JMenuItem beendeSpiel;
 	
 	
-	public GUI(int breite, int hoehe, int[][] map, String[][] spielerdaten){
+	public GUI(int breite, int hoehe, int[][] map, String[][] spielerdaten, ServerToClient stc){
 		super("The Gravesite");
 		super.setSize(breite, hoehe);
 		this.map = map;
 		this.spielerdaten = spielerdaten;
+		this.stc = stc;
 		
 		erstelleMenuBar();
 		ladeBild();
@@ -134,7 +139,7 @@ public class GUI extends JFrame implements ActionListener{
 		panel.setLayout(new GridLayout(spielerdaten.length, spielerdaten[0].length));
 		for(int i = 0; i < spielerdaten.length; i++){
 			for(int j = 0; j < spielerdaten[0].length; j++){
-				panel.add(new JLabel(spielerdaten[i][j]));
+				panel.add(new JLabel("<html><font color='white'>" + spielerdaten[i][j] + "</font></html>"));
 			}
 		}
 		return panel;
@@ -147,7 +152,13 @@ public class GUI extends JFrame implements ActionListener{
 		if (befehl.equals("Neues Spiel")) {
 			// TODO Spielername setzen
 			spielername = JOptionPane.showInputDialog(null,"Geben Sie Ihren Namen ein","Neuen Spieler erstellen",JOptionPane.PLAIN_MESSAGE);
-        	picLabel.setVisible(false);
+        	try {
+				stc.addSpieler(spielername);
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			picLabel.setVisible(false);
         	ladeOberflaeche();
 		}
 		

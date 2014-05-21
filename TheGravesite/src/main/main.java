@@ -21,7 +21,7 @@ public class main {
 			spielerdaten = ServerToClientImpl.getSpielerdaten();
 			map = ServerToClientImpl.getMap();
 			
-			GUI hauptfenster = new GUI(1280, 720, map, spielerdaten);
+			GUI hauptfenster = new GUI(1280, 720, map, spielerdaten, ServerToClientImpl);
 
 		} catch (ConnectException e){
 			System.err.println("Die Verbindung zum Server schlug fehl. Ist der Server gestartet?");
