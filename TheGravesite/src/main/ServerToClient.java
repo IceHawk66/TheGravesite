@@ -1,6 +1,6 @@
 package main;
 
-public interface InterfaceRawData {
+public interface ServerToClient {
 
 	public String[][] getSpielerdaten();
 	public int[][] getMap();

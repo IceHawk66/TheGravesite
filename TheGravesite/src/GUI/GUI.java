@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,8 +20,10 @@ import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener{
 	private JLabel picLabel;
-	private String spielername;
+	public static String spielername;
+	private String spielid;
 	private int[][] map;
+	private String[][] spielerdaten;
 	
 	// Menuebar
 	JMenuBar menuBar;
@@ -34,10 +37,11 @@ public class GUI extends JFrame implements ActionListener{
 	JMenuItem beendeSpiel;
 	
 	
-	public GUI(int breite, int hoehe, int[][] map){
+	public GUI(int breite, int hoehe, int[][] map, String[][] spielerdaten){
 		super("The Gravesite");
 		super.setSize(breite, hoehe);
 		this.map = map;
+		this.spielerdaten = spielerdaten;
 		
 		erstelleMenuBar();
 		ladeBild();
@@ -54,7 +58,6 @@ public class GUI extends JFrame implements ActionListener{
 		optionen.addActionListener(this);
 		speichern.addActionListener(this);
 		beendeSpiel.addActionListener(this);
-		
 	}
 
 	private void ladeBild() {
@@ -100,21 +103,41 @@ public class GUI extends JFrame implements ActionListener{
 	}
 
 	// Map abbilden
-	public void ladeMap(){
+	public JPanel ladeMap(){
 	    JPanel grid = new JPanel();
+	    grid.setBackground(Color.BLACK);
 	    grid.setLayout(new GridLayout(map.length, map[0].length));
 	    for (int i = 0; i < map.length; i++) {
 	        for (int j = 0; j < map[0].length; j++) {
+	        	if (map[i][j] == 5)
+                    grid.add(new JLabel("<html><font color='green'>X</font></html>")); // Boden
+	        	if (map[i][j] == 4)
+                    grid.add(new JLabel("<html><font color='red'>E</font></html>")); // Boden
+	        	if (map[i][j] == 3)
+                    grid.add(new JLabel("<html><font color='blue'>O</font></html>")); // Boden
 	        	if (map[i][j] == 2)
-                    grid.add(new JLabel("'")); // Boden
+                    grid.add(new JLabel("<html><font color='white'>.</font></html>")); // Boden
                 if (map[i][j] == 1)
-                    grid.add(new JLabel("#")); // Wand
+                    grid.add(new JLabel("<html><font color='white'>#</font></html>")); // Wand
                 if (map[i][j] == 0)
-                    grid.add(new JLabel(" ")); // Ausserhalb der Map
+                    grid.add(new JLabel("<html><font color='white'>#</font></html>")); // Ausserhalb der Map
 	        }
 	    }
-	    this.add(grid);
+	    //this.add(grid);
 	    grid.setVisible(true);
+	    return grid;
+	}
+	
+	public JPanel ladeSpielerdaten(){
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+		panel.setLayout(new GridLayout(spielerdaten.length, spielerdaten[0].length));
+		for(int i = 0; i < spielerdaten.length; i++){
+			for(int j = 0; j < spielerdaten[0].length; j++){
+				panel.add(new JLabel(spielerdaten[i][j]));
+			}
+		}
+		return panel;
 	}
 
 	@Override
@@ -122,27 +145,37 @@ public class GUI extends JFrame implements ActionListener{
 		String befehl = e.getActionCommand();
 
 		if (befehl.equals("Neues Spiel")) {
+			// TODO Spielername setzen
 			spielername = JOptionPane.showInputDialog(null,"Geben Sie Ihren Namen ein","Neuen Spieler erstellen",JOptionPane.PLAIN_MESSAGE);
         	picLabel.setVisible(false);
-        	ladeMap();
+        	ladeOberflaeche();
 		}
 		
 		if(befehl.equals("Spiel laden")){
-			// ladeSpiel Dialog aufrufen
+			// TODO Spiel speichern
+			spielid = JOptionPane.showInputDialog(null,"Geben Sie Ihre Spiel-ID ein","Spiel laden",JOptionPane.PLAIN_MESSAGE);
 		}
 		
 		if(befehl.equals("Optionen")){
-			// Optionen Menue
+			// TODO Optionen Menue
 		}
 		
 		if(befehl.equals("Spiel speichern")){
-			// Spiel speichern
+			// TODO Spiel speichern
 		}
 		
 		if(befehl.equals("Beenden")){
 			System.exit(0);
 		}
         
+	}
+
+	private void ladeOberflaeche() {
+		JPanel oberflaeche = new JPanel();
+		oberflaeche.setLayout(new BorderLayout());
+		oberflaeche.add(ladeMap(), BorderLayout.CENTER);
+		oberflaeche.add(ladeSpielerdaten(), BorderLayout.EAST);
+		this.add(oberflaeche);
 	}
 	
 }

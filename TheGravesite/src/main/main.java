@@ -15,13 +15,13 @@ public class main {
 		try{
 			// Registry vom Server abrufen
 			Registry registry = LocateRegistry.getRegistry();
-			InterfaceRawData rawdata = (InterfaceRawData) registry.lookup("InterfaceRawData");
+			ServerToClient ServerToClientImpl = (ServerToClient) registry.lookup("ServerToClient");
 
 			// Arrays initialisieren mit Daten vom Server
-			spielerdaten = rawdata.getSpielerdaten();
-			map = rawdata.getMap();
+			spielerdaten = ServerToClientImpl.getSpielerdaten();
+			map = ServerToClientImpl.getMap();
 			
-			GUI hauptfenster = new GUI(1280, 720, map);
+			GUI hauptfenster = new GUI(1280, 720, map, spielerdaten);
 
 		} catch (ConnectException e){
 			System.err.println("Die Verbindung zum Server schlug fehl. Ist der Server gestartet?");
