@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,6 +29,8 @@ public class GUI extends JFrame implements ActionListener{
 	private int[][] map;
 	private String[][] spielerdaten;
 	private ServerToClient stc;
+	private int hoehe;
+	private int breite;
 	
 	// Menuebar
 	JMenuBar menuBar;
@@ -47,6 +50,8 @@ public class GUI extends JFrame implements ActionListener{
 		this.map = map;
 		this.spielerdaten = spielerdaten;
 		this.stc = stc;
+		this.hoehe = hoehe;
+		this.breite = breite;
 		
 		erstelleMenuBar();
 		ladeBild();
@@ -115,11 +120,11 @@ public class GUI extends JFrame implements ActionListener{
 	    for (int i = 0; i < map.length; i++) {
 	        for (int j = 0; j < map[0].length; j++) {
 	        	if (map[i][j] == 5)
-                    grid.add(new JLabel("<html><font color='green'>X</font></html>")); // Boden
+                    grid.add(new JLabel("<html><font color='green'>X</font></html>")); // Spieler
 	        	if (map[i][j] == 4)
-                    grid.add(new JLabel("<html><font color='red'>E</font></html>")); // Boden
+                    grid.add(new JLabel("<html><font color='red'>E</font></html>")); // Eingang
 	        	if (map[i][j] == 3)
-                    grid.add(new JLabel("<html><font color='blue'>O</font></html>")); // Boden
+                    grid.add(new JLabel("<html><font color='blue'>O</font></html>")); // Ausgang
 	        	if (map[i][j] == 2)
                     grid.add(new JLabel("<html><font color='white'>.</font></html>")); // Boden
                 if (map[i][j] == 1)
@@ -135,6 +140,7 @@ public class GUI extends JFrame implements ActionListener{
 	
 	public JPanel ladeSpielerdaten(){
 		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(breite/3,hoehe));
 		panel.setBackground(Color.BLACK);
 		panel.setLayout(new GridLayout(spielerdaten.length, spielerdaten[0].length));
 		for(int i = 0; i < spielerdaten.length; i++){
@@ -186,7 +192,21 @@ public class GUI extends JFrame implements ActionListener{
 		oberflaeche.setLayout(new BorderLayout());
 		oberflaeche.add(ladeMap(), BorderLayout.CENTER);
 		oberflaeche.add(ladeSpielerdaten(), BorderLayout.EAST);
+		oberflaeche.add(ladeMoeglicheZuege(), BorderLayout.SOUTH);
 		this.add(oberflaeche);
+	}
+
+	private JPanel ladeMoeglicheZuege() {
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(((breite/3)*2)-20,hoehe/4));
+		panel.setBackground(Color.BLACK);
+		panel.setLayout(new GridLayout(spielerdaten.length, spielerdaten[0].length));
+		for(int i = 0; i < spielerdaten.length; i++){
+			for(int j = 0; j < spielerdaten[0].length; j++){
+				panel.add(new JLabel("<html><font color='white'>" + spielerdaten[i][j] + "</font></html>"));
+			}
+		}
+		return panel;
 	}
 	
 }
