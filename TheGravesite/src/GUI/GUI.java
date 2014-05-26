@@ -2,19 +2,14 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.rmi.RemoteException;
 
 import javax.imageio.*;
@@ -22,8 +17,10 @@ import javax.swing.*;
 
 import main.ServerToClient;
 
-public class GUI extends JFrame implements ActionListener{
+public class GUI extends JFrame implements ActionListener, KeyListener{
 	private JLabel picLabel;
+	private JPanel grid;
+	private JPanel oberflaeche;
 	private String spielername;
 	private String spielid;
 	private int[][] map;
@@ -57,6 +54,7 @@ public class GUI extends JFrame implements ActionListener{
 		ladeBild();
 		registriereListener();
 		
+		this.addKeyListener(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		super.setVisible(true);
@@ -113,8 +111,8 @@ public class GUI extends JFrame implements ActionListener{
 	}
 
 	// Map abbilden
-	public JPanel ladeMap(){
-	    JPanel grid = new JPanel();
+	public void aktualisiereMap(){
+	    grid = new JPanel();
 	    grid.setBackground(Color.BLACK);
 	    grid.setLayout(new GridLayout(map.length, map[0].length));
 	    for (int i = 0; i < map.length; i++) {
@@ -133,9 +131,7 @@ public class GUI extends JFrame implements ActionListener{
                     grid.add(new JLabel("<html><font color='white'>#</font></html>")); // Ausserhalb der Map
 	        }
 	    }
-	    //this.add(grid);
-	    grid.setVisible(true);
-	    return grid;
+	    //grid.setVisible(true);
 	}
 	
 	public JPanel ladeSpielerdaten(){
@@ -188,9 +184,10 @@ public class GUI extends JFrame implements ActionListener{
 	}
 
 	private void ladeOberflaeche() {
-		JPanel oberflaeche = new JPanel();
+		oberflaeche = new JPanel();
 		oberflaeche.setLayout(new BorderLayout());
-		oberflaeche.add(ladeMap(), BorderLayout.CENTER);
+		aktualisiereMap();
+		oberflaeche.add(grid, BorderLayout.CENTER);
 		oberflaeche.add(ladeSpielerdaten(), BorderLayout.EAST);
 		oberflaeche.add(ladeMoeglicheZuege(), BorderLayout.SOUTH);
 		this.add(oberflaeche);
@@ -198,7 +195,7 @@ public class GUI extends JFrame implements ActionListener{
 
 	private JPanel ladeMoeglicheZuege() {
 		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(((breite/3)*2)-20,hoehe/4));
+		panel.setPreferredSize(new Dimension(breite/3,hoehe/4));
 		panel.setBackground(Color.BLACK);
 		panel.setLayout(new GridLayout(spielerdaten.length, spielerdaten[0].length));
 		for(int i = 0; i < spielerdaten.length; i++){
@@ -207,6 +204,29 @@ public class GUI extends JFrame implements ActionListener{
 			}
 		}
 		return panel;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// nothing here
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		char key = e.getKeyChar();
+		if(key == KeyEvent.VK_LEFT){ // map nach rechts verschieben
+			map[1][1] = 5;
+			aktualisiereMap();
+			oberflaeche.remove(grid);
+			//oberflaeche.add(grid);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// nothing here
+		
 	}
 	
 }
