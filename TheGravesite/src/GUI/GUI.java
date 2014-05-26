@@ -3,6 +3,7 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +54,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 		erstelleMenuBar();
 		ladeBild();
 		registriereListener();
+		
+		// Für paint()
+		grid = new JPanel();
+		JPanel spieldaten = new JPanel();
+		spieldaten.setPreferredSize(new Dimension(breite/3,hoehe));
+		JPanel spielzuege = new JPanel();
+		spielzuege.setPreferredSize(new Dimension(breite/3,hoehe/4));
 		
 		this.addKeyListener(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -161,7 +169,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				e1.printStackTrace();
 			}
 			picLabel.setVisible(false);
-        	ladeOberflaeche();
+			//repaint();
+        	//ladeOberflaeche();
 		}
 		
 		if(befehl.equals("Spiel laden")){
@@ -214,8 +223,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		char key = e.getKeyChar();
-		if(key == KeyEvent.VK_LEFT){ // map nach rechts verschieben
+		if(e.getKeyChar() == KeyEvent.VK_LEFT){ // map nach rechts verschieben
 			map[1][1] = 5;
 			aktualisiereMap();
 			oberflaeche.remove(grid);
@@ -226,7 +234,33 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// nothing here
-		
 	}
 	
+	public void paint(Graphics g){
+		// Map
+		g.setColor(Color.black);
+		g.fillRect(0, 0, breite, hoehe);
+		g.setColor(Color.white);
+		for(int i = 0; i < map.length; i++){
+			for(int j = 0; j < map[0].length; j++){
+				g.drawString(String.valueOf(map[i][j]), berechnePosition(grid.getWidth(), map.length, i), (berechnePosition(grid.getHeight(), map[0].length, j)) + 40);
+			}
+		}
+	}
+	
+	/**
+	 * Variablen werden erst in Double gecastet, damit bei grid.getWidth() / map.length nicht 0 herauskommt
+	 * Wenn hinterher benötigt dann über Server, Berechnung nicht auf Client
+	 * @param a Länge des JPanels
+	 * @param b Länge des Arrays
+	 * @param c Multiplikator
+	 * @return X bzw Y Position
+	 */
+	public int berechnePosition(int a, int b, int c){
+		double d = (double)a;
+		double e = (double)b;
+		double f = (double)c;
+		double g = d / e * f;
+		return (int)g;
+	}
 }
