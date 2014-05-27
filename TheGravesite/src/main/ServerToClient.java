@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 public interface ServerToClient extends Remote{
 	
 	public String[][] getSpielerdaten() throws RemoteException;
-	public int[][] getMap() throws RemoteException;
+	public int[][] getAktiveMap() throws RemoteException;
 	public void addSpieler(String name) throws RemoteException;
+	public void bewegeMap(int richtung) throws RemoteException;
 }

@@ -19,7 +19,7 @@ public class main {
 
 			// Arrays initialisieren mit Daten vom Server
 			spielerdaten = ServerToClientImpl.getSpielerdaten();
-			map = ServerToClientImpl.getMap();
+			map = ServerToClientImpl.getAktiveMap();
 			
 			GUI hauptfenster = new GUI(1280, 720, map, spielerdaten, ServerToClientImpl);
 
