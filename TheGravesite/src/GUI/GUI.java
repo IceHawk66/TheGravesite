@@ -32,7 +32,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 	private int hoehe;
 	private int breite;
 	private int anzPaint = 0;
-	private Oberflaeche of;
+	private Map of;
 	
 	/*
 	 * Bild von /src anstatt /bin
@@ -60,22 +60,19 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 		this.stc = stc;
 		this.hoehe = hoehe;
 		this.breite = breite;
-		of = new Oberflaeche(map, this);
+		
+		of = new Map(stc, this);
+		
 		erstelleMenuBar();
 		registriereListener();
 		ladeOberflaeche();
 		
 		// Für paint()
-		/*
-		grid = new JPanel();
-		grid.setPreferredSize(new Dimension((breite / 3 * 2), (hoehe / 4) * 3));
 		JPanel spieldaten = new JPanel();
 		spieldaten.setPreferredSize(new Dimension(breite/3,hoehe));
 		JPanel spielzuege = new JPanel();
 		spielzuege.setPreferredSize(new Dimension(breite/3,hoehe/4));
 		this.pack();
-		*/
-		
 
 		this.addKeyListener(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,8 +120,22 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 	private void ladeOberflaeche() {
 		oberflaeche = new JPanel();
 		oberflaeche.setLayout(new BorderLayout());
-		oberflaeche.add(of, BorderLayout.CENTER);
+		oberflaeche.add(ladeBild(), BorderLayout.CENTER);
 		this.add(oberflaeche);
+	}
+	
+	private JLabel ladeBild(){
+		
+		BufferedImage hintergrund = null;
+ 		try{
+			hintergrund = ImageIO.read(this.getClass().getResource("/resources/bg.png"));
+ 			picLabel = new JLabel(new ImageIcon(hintergrund));
+ 			this.add(picLabel);
+ 			return picLabel;
+ 		} catch (IOException e) {
+ 			
+ 		}
+ 		return new JLabel(); 
 	}
 
 	@Override
@@ -140,7 +151,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        	
+        	picLabel.setVisible(false);	// oberflaeche.remove(picLabel) wäre mir lieber, aber funktioniert nicht *argh*
+        	oberflaeche.add(of, BorderLayout.CENTER);
 			of.repaint();
 		}
 		
