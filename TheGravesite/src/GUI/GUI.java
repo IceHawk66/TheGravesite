@@ -152,6 +152,12 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				e1.printStackTrace();
 			}
         	picLabel.setVisible(false);	// oberflaeche.remove(picLabel) wäre mir lieber, aber funktioniert nicht *argh*
+        	try {
+				stc.erstelleNeueMap();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         	oberflaeche.add(of, BorderLayout.CENTER);
 			of.repaint();
 		}

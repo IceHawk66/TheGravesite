@@ -9,4 +9,5 @@ public interface ServerToClient extends Remote{
 	public int[][] getAktiveMap() throws RemoteException;
 	public void addSpieler(String name) throws RemoteException;
 	public void bewegeMap(int richtung) throws RemoteException;
+	public void erstelleNeueMap() throws RemoteException;
 }
