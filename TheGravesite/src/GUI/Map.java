@@ -58,7 +58,7 @@ public class Map extends JPanel{
 					default:
 						g.setColor(Color.WHITE);break;
 				}
-				g.drawString(intToString(map[i][j]), (berechnePosition(owner.getContentPane().getHeight()/3*2, map.length, j)), berechnePosition(owner.getContentPane().getWidth()/4*3, map[0].length, i));
+				g.drawString(intToString(map[i][j]), (berechnePosition((int)(owner.getContentPane().getHeight() * 0.66), map.length, j)), berechnePosition((int)(owner.getContentPane().getWidth()*0.75), map[0].length, i));
 				
 			}
 		}

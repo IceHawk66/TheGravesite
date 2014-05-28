@@ -22,7 +22,6 @@ import main.ServerToClient;
 
 public class GUI extends JFrame implements ActionListener, KeyListener{
 	private JLabel picLabel;
-	private JPanel grid;
 	private JPanel oberflaeche;
 	private String spielername;
 	private String spielid;
@@ -31,8 +30,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 	private ServerToClient stc;
 	private int hoehe;
 	private int breite;
-	private int anzPaint = 0;
-	private Map of;
+	private Map welt;
+	private Spielerdaten sd;
 	
 	/*
 	 * Bild von /src anstatt /bin
@@ -61,7 +60,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 		this.hoehe = hoehe;
 		this.breite = breite;
 		
-		of = new Map(stc, this);
+		welt = new Map(stc, this);
+		sd = new Spielerdaten(stc, this);
 		
 		erstelleMenuBar();
 		registriereListener();
@@ -158,8 +158,10 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        	oberflaeche.add(of, BorderLayout.CENTER);
-			of.repaint();
+        	oberflaeche.add(welt, BorderLayout.CENTER);
+        	oberflaeche.add(sd, BorderLayout.EAST);
+        	sd.repaint();
+			welt.repaint();
 		}
 		
 		if(befehl.equals("Spiel laden")){
@@ -194,7 +196,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 			try {
 				stc.bewegeMap(1);
 				map = stc.getAktiveMap();
-				of.repaint();
+				welt.repaint();
+				sd.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
@@ -202,7 +205,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 			try {
 				stc.bewegeMap(2);
 				map = stc.getAktiveMap();
-				of.repaint();
+				welt.repaint();
+				sd.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
@@ -210,7 +214,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 			try {
 				stc.bewegeMap(3);
 				map = stc.getAktiveMap();
-				of.repaint();
+				welt.repaint();
+				sd.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
@@ -218,7 +223,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 			try {
 				stc.bewegeMap(4);
 				map = stc.getAktiveMap();
-				of.repaint();
+				welt.repaint();
+				sd.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
