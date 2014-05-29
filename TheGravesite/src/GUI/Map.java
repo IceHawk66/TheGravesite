@@ -17,14 +17,13 @@ import main.ServerToClient;
 public class Map extends JPanel{
 	
 	private ServerToClient stc;
-	private int anzPaint = 0;
 	private JFrame owner;
 	private int[][] map;
 	
 	public Map(ServerToClient stc, JFrame owner){
 		this.stc = stc;
 		this.owner = owner;
-		this.setPreferredSize(new Dimension(968,500));
+		this.setPreferredSize(new Dimension((int)(owner.getContentPane().getWidth()*0.66),(int)(owner.getContentPane().getHeight()*0.75)));
 		this.setVisible(true);
 	}
 	

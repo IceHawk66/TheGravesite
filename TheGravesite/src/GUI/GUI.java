@@ -32,6 +32,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 	private int breite;
 	private Map welt;
 	private Spielerdaten sd;
+	private MoeglicheZuege mz;
 	
 	/*
 	 * Bild von /src anstatt /bin
@@ -62,6 +63,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 		
 		welt = new Map(stc, this);
 		sd = new Spielerdaten(stc, this);
+		mz = new MoeglicheZuege(stc, this);
+		
 		
 		erstelleMenuBar();
 		registriereListener();
@@ -160,6 +163,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 			}
         	oberflaeche.add(welt, BorderLayout.CENTER);
         	oberflaeche.add(sd, BorderLayout.EAST);
+        	oberflaeche.add(mz, BorderLayout.SOUTH);
+        	mz.repaint();
         	sd.repaint();
 			welt.repaint();
 		}
@@ -207,6 +212,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				map = stc.getAktiveMap();
 				welt.repaint();
 				sd.repaint();
+				mz.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
@@ -216,6 +222,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				map = stc.getAktiveMap();
 				welt.repaint();
 				sd.repaint();
+				mz.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
@@ -225,6 +232,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				map = stc.getAktiveMap();
 				welt.repaint();
 				sd.repaint();
+				mz.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
