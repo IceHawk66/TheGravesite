@@ -19,7 +19,7 @@ public class Spielerdaten extends JPanel{
 	public Spielerdaten(ServerToClient stc, JFrame owner){
 		this.stc = stc;
 		this.owner = owner;
-		this.setPreferredSize(new Dimension(312,owner.getContentPane().getHeight()));
+		this.setPreferredSize(new Dimension((int)(owner.getWidth()*0.25),(int)(owner.getHeight()*0.75)));
 		this.setVisible(true);
 	}
 	

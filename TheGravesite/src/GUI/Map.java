@@ -31,13 +31,13 @@ public class Map extends JPanel{
 
 		// Map
 		try {
-			map = stc.getAktiveMap();
+			map = stc.getSichtfeld();
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-		g.setColor(Color.black);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 100000,100000);
 		g.setColor(Color.white);
 		//g.drawString("" + this.getContentPane().getWidth(), 40, 40);

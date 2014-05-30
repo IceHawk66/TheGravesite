@@ -55,12 +55,12 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 	public GUI(int breite, int hoehe, int[][] map, String[][] spielerdaten, ServerToClient stc){
 		super("The Gravesite");
 		super.setSize(breite, hoehe);
+		this.breite = breite;
+		this.hoehe = hoehe;
 		this.map = map;
 		this.spielerdaten = spielerdaten;
 		this.stc = stc;
-		this.hoehe = hoehe;
-		this.breite = breite;
-		
+
 		welt = new Map(stc, this);
 		sd = new Spielerdaten(stc, this);
 		mz = new MoeglicheZuege(stc, this);
@@ -161,6 +161,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+        	speichern.setEnabled(true);
         	oberflaeche.add(welt, BorderLayout.CENTER);
         	oberflaeche.add(sd, BorderLayout.EAST);
         	oberflaeche.add(mz, BorderLayout.SOUTH);
@@ -200,16 +201,17 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 		if ((e.getKeyCode() == KeyEvent.VK_UP) || (e.getKeyCode() == 87))
 			try {
 				stc.bewegeMap(1);
-				map = stc.getAktiveMap();
+				map = stc.getSichtfeld();
 				welt.repaint();
 				sd.repaint();
+				mz.repaint();
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
     	if ((e.getKeyCode() == KeyEvent.VK_DOWN) || (e.getKeyCode() == 83))
 			try {
 				stc.bewegeMap(2);
-				map = stc.getAktiveMap();
+				map = stc.getSichtfeld();
 				welt.repaint();
 				sd.repaint();
 				mz.repaint();
@@ -219,7 +221,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
     	if ((e.getKeyCode() == KeyEvent.VK_LEFT) || (e.getKeyCode() == 65))
 			try {
 				stc.bewegeMap(3);
-				map = stc.getAktiveMap();
+				map = stc.getSichtfeld();
 				welt.repaint();
 				sd.repaint();
 				mz.repaint();
@@ -229,7 +231,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
     	if ((e.getKeyCode() == KeyEvent.VK_RIGHT) || (e.getKeyCode() == 68))
 			try {
 				stc.bewegeMap(4);
-				map = stc.getAktiveMap();
+				map = stc.getSichtfeld();
 				welt.repaint();
 				sd.repaint();
 				mz.repaint();
@@ -241,5 +243,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// nothing here
+	}
+
+	public int getBreite() {
+		return breite;
+	}
+
+	public int getHoehe() {
+		return hoehe;
 	}
 }
